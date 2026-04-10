@@ -20,8 +20,8 @@
 #include "stm32f4xx.h"
 
 #define GPIOAEN (1U << 0)
-#define GPIO_PIN_5 (1U << 6)
-#define LED_PIN GPIO_PIN_5
+#define GPIO_PIN_6 (1U << 6)
+#define LED_PIN GPIO_PIN_6
 
 int main(void)
 {

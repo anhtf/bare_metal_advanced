@@ -48,6 +48,8 @@ set(sources_SRCS
 # Include directories for all compilers
 set(include_DIRS
 	${CMAKE_CURRENT_SOURCE_DIR}/Inc
+    mcu_headers/CMSIS/Include
+    mcu_headers/CMSIS/Device/ST/STM32F4xx/Include
 )
 
 # Include directories for each compiler
@@ -75,6 +77,7 @@ set(compiler_OPTS)
 
 # Linker options
 set(linker_OPTS)
+
 
 # Now call generated cmake
 # This will add script generated

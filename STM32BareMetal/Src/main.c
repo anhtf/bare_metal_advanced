@@ -19,28 +19,18 @@
 #include <stdint.h>
 #include "stm32f4xx.h"
 
-#define GPIOAEN (1U << 0)
-#define GPIO_PIN_6 (1U << 6)
-#define LED_PIN GPIO_PIN_6
+int total;
 
 int main(void)
 {
 
-    // Enable clock access GPIOA
-    RCC->AHB1ENR |= GPIOAEN;
-
-    // Set PA6 to output mode
-    GPIOA->MODER |= (1U << 12);
-    GPIOA->MODER &= ~(1U << 13);
+    for (int i = 0; i < 10; i++)
+    {
+        total += i;
+    }
     /* Loop forever */
     while (1)
     {
-        /* code */
-        GPIOA->ODR ^= LED_PIN;
-
-        for (int i = 0; i < 100000;i++)
-        {
-            
-        }
+      
     }
 }

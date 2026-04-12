@@ -18,29 +18,33 @@
 
 #include <stdint.h>
 #include "stm32f4xx.h"
+#include "adc_dma.h"
 
-#define GPIOAEN (1U << 0)
-#define GPIO_PIN_6 (1U << 6)
-#define LED_PIN GPIO_PIN_6
+/*
+STM32F4: Single adc module, other like H7 has two adc modules(dual mode)
+ADc Independent Mode: 
+1. Single chanel - Single conversion
+2. Multichannel(scan) - Single conversion mode
+3. Single chanel, continuous conversion mode
+4. Multichannel, continuous conversion mode
+5. Injected continuous conversion mode
 
+* Modules different channel: one module has 16 channels
+
+1. Simplest ADC mode: ADC perform a single conversion of a single channel x-> stop after conversion is complete
+2. Used to convert multiple channels successively: Up to 16 different channels with different sampling times can be converted in the stm32f4: Start --> Chx--->CHn-->Stop
+3. Works in the background without intervention from CPU:  
+     Start ----> CHx------> Continuously
+4.
+5. 
+*/
 int main(void)
 {
 
-    // Enable clock access GPIOA
-    RCC->AHB1ENR |= GPIOAEN;
-
-    // Set PA6 to output mode
-    GPIOA->MODER |= (1U << 12);
-    GPIOA->MODER &= ~(1U << 13);
+    adc_dma_init();
     /* Loop forever */
     while (1)
     {
-        /* code */
-        GPIOA->ODR ^= LED_PIN;
 
-        for (int i = 0; i < 100000;i++)
-        {
-            
-        }
     }
 }

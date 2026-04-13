@@ -17,6 +17,8 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
+#include "stm32f407xx.h"
 #include "stm32f4xx.h"
 #include "adc_dma.h"
 
@@ -38,13 +40,36 @@ ADc Independent Mode:
 4.
 5. 
 */
+
+volatile uint8_t g_transfer_completed;
+extern uint16_t adc_tim_raw[NUMBER_OF_SAMPLES];
+
 int main(void)
 {
+     g_transfer_completed = 0;
 
-    adc_dma_init();
+    adc_tim_dma_init();
     /* Loop forever */
     while (1)
     {
+        if (g_transfer_completed)
+        {
+            g_transfer_completed = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                //printf("Sample number [%d] = %d\r\n", i, adc_tim_raw[i]);
+            }
+            for (int i = 0; i < 90000; i++){}
+        }
 
+    }
+}
+
+void DMA2_Stream0_IRQHandler(void)
+{
+    if ((DMA2->LISR) & LISR_TCIFO)
+    {
+        g_transfer_completed = 1;
+        DMA2->LIFCR |= LIFCR_CTCIFO;
     }
 }

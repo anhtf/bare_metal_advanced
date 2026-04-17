@@ -44,6 +44,7 @@ set(cpu_PARAMS
 set(sources_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/adc_dma.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Src/uart_dma.c
 )
 
 # Include directories for all compilers
